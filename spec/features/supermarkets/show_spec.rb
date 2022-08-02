@@ -24,12 +24,12 @@ RSpec.describe 'Supermarket Show Page' do
         visit "/supermarkets/#{kroagur.id}"
 
         expect(page).to have_content(kroagur.name)
-        expect(page).to have_link("view all items")
+        
+        within("#item-index-link") do 
+            expect(page).to have_link("view all items")
 
-        click_link("view all items")
-
+            click_link("view all items")
+        end
         expect(current_path).to eq("/supermarkets/#{kroagur.id}/items")
     end
 end
-
-
