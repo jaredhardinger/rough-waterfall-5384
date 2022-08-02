@@ -48,7 +48,7 @@ RSpec.describe 'Customer Show Page' do
         item1c = Item.create!(name: 'pepper', price: 1)
         item1d = Item.create!(name: 'rice', price: 4)
         item1e = Item.create!(name: 'couscous', price: 2)
-        item2c = Item.create!(name: 'quinoa', price: 3)
+        item2a = Item.create!(name: 'quinoa', price: 3)
 
         steve = kroagur.customers.create!(name: 'Steve')
         sally = kingsloops.customers.create!(name: 'Sally')
