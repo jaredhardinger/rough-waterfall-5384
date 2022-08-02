@@ -38,4 +38,32 @@ RSpec.describe 'Customer Show Page' do
         expect(page).to_not have_content(item1c.name)
         expect(page).to_not have_content(item2c.name)
     end
+
+    it 'displays the total price of all items' do 
+        kroagur = Supermarket.create!(name: 'Kroagur', location: 'Ohio')
+        kingsloops = Supermarket.create!(name: 'King Sloopers', location: 'Colorado')
+
+        item1a = Item.create!(name: 'cheese', price: 3)
+        item1b = Item.create!(name: 'onion', price: 2)
+        item1c = Item.create!(name: 'pepper', price: 1)
+        item1d = Item.create!(name: 'rice', price: 4)
+        item1e = Item.create!(name: 'couscous', price: 2)
+        item2c = Item.create!(name: 'quinoa', price: 3)
+
+        steve = kroagur.customers.create!(name: 'Steve')
+        sally = kingsloops.customers.create!(name: 'Sally')
+
+        CustomerItem.create!(customer_id: steve.id, item_id: item1a.id)
+        CustomerItem.create!(customer_id: steve.id, item_id: item1b.id)
+        CustomerItem.create!(customer_id: steve.id, item_id: item1c.id)
+        CustomerItem.create!(customer_id: steve.id, item_id: item1d.id)
+        CustomerItem.create!(customer_id: steve.id, item_id: item1e.id)
+        CustomerItem.create!(customer_id: sally.id, item_id: item2a.id)
+
+        visit "/customers/#{steve.id}"
+
+        within("#total-price") do
+            expect(page).to have_content("Total Price: $12")
+        end
+    end
 end
